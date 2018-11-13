@@ -1,0 +1,71 @@
+type PaymentIssue {
+	id: ID! @unique
+	amountRecieved: Int
+	cashBalanceBefore: Int
+	cashBalanceAfter: Int
+	amountIssued: Int
+	amountCharged: Int
+	amountReturned: Int
+	paymentType: String
+	recieptNumber: String
+	otherDetails: String
+	dateIssued: String
+	dateReported: String
+	cashReported: Boolean @default(value: "false")
+	accountCharged: AccountName
+	issuedBy: User!
+	createdAt: String!
+	updatedAt: String!
+	month: String
+	amount: String
+}
+
+type Query {
+	paymentIssueFeed(filter: String): [PaymentIssue!]!
+	paymentsIssuedFeed(filter: String): [PaymentIssue!]!
+	paymentIssue(paymentIssue_id: ID!): PaymentIssue
+	paymentIssuedSumByType(
+		paymentType: String
+		startDate: String
+		endDate: String
+	): Int
+	paymentIssueSumByTypeGrouped(
+		paymentType: String
+		startDate: String
+		endDate: String
+	): [PaymentIssue]!
+}
+
+type Mutation {
+	addCashReceipt(
+		accountchargedId: ID!
+		otherDetails: String
+		cashbalId: ID!
+		balbefore: Int!
+		amountRecieved: Int!
+		dateIssued: String!
+	): Boolean!
+
+	addPaymentIssue(
+		accountchargedId: ID!
+		cashbalId: ID!
+		balbefore: Int!
+		otherDetails: String
+		paymentType: String!
+		projectId: ID!
+		amountIssued: Int!
+		dateIssued: String!
+		requestId: ID!
+	): Boolean!
+
+	removePaymentIssue(paymentIssue_id: ID!, cashbalId: ID!): Boolean!
+
+	reportPayment(
+		paymentIssue_id: ID!
+		amountReturned: Int
+		amountCharged: Int
+		recieptNumber: String
+		dateReported: String
+		requestId: ID!
+	): Boolean!
+}

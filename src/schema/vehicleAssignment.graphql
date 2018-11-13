@@ -1,0 +1,35 @@
+type VehicleAssignment {
+	id: ID! @unique
+	dateOfAssignment: String!
+	dateRelieved: String
+	motorVehicle: Vehicle!
+	assignee: Personnel!
+	createdAt: String!
+	updatedAt: String!
+}
+
+type Query {
+	vehicleAssignmentFeed(
+		filter: String
+		first: Int
+		skip: Int
+	): [VehicleAssignment!]!
+	vehicleAssignment(id: ID!): VehicleAssignment!
+}
+
+type Mutation {
+	addVehicleAssignment(
+		vehicleId: ID!
+		personnelId: ID!
+		dateOfAssignment: String!
+	): Boolean!
+
+	editVehicleAssignment(
+		id: ID!
+		vehicleId: ID!
+		personnelId: ID!
+		dateOfAssignment: String!
+	): Boolean!
+
+	removeVehicleAssignment(id: ID!): Boolean!
+}

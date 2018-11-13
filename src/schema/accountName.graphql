@@ -1,0 +1,34 @@
+type AccountName {
+	id: ID! @unique
+	name: String!
+	balance: CashBalance!
+	description: String!
+	location: String
+	accountName: String
+	cashTransactions: [PaymentIssue!]
+	otherTransactions: [OtherPaymentIssue!]
+	createdAt: String
+	updatedAt: String
+}
+
+type Query {
+	accountFeed(filter: String, first: Int, skip: Int): [AccountName!]!
+	account(id: ID): AccountName
+}
+
+type Mutation {
+	addAccount(
+		name: String!
+		description: String!
+		accountName: String
+		location: String
+	): Boolean!
+	editAccount(
+		id: ID!
+		name: String!
+		description: String!
+		accountName: String
+		location: String
+	): Boolean!
+	removeAccount(id: ID!): Boolean!
+}

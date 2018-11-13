@@ -1,0 +1,13 @@
+type OtherPaymentIssue {
+	id: ID! @unique
+	amountPaid: Int!
+	invoiceNumber: String!
+	accountCharged: AccountName
+	discountRecieved: Int!
+	requestedMaterialsPayment: MaterialRequisition
+	datePaid: String!
+	otherDetails: String
+	issuedBy: User!
+	createdAt: String!
+	updatedAt: String!
+}

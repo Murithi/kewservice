@@ -1,0 +1,44 @@
+type MaterialsCosting {
+	id: ID! @unique
+	materialName: String!
+	materialDescription: String
+	units: Int
+	costPerUnit: Int
+	standardUnit: String
+	balance: StoreBalance
+	createdAt: String!
+	updatedAt: String!
+	createdBy: User!
+	transactions: [StoreTransaction!]!
+	requisitions: [MaterialRequisition!]!
+}
+
+type Query {
+	materialsCostingFeed(
+		filter: String
+		first: Int
+		skip: Int
+	): [MaterialsCosting!]!
+	materialsCosting(id: ID!): MaterialsCosting
+}
+
+type Mutation {
+	addMaterials(
+		materialName: String!
+		materialDescription: String
+		units: Int
+		costPerUnit: Int
+		standardUnit: String
+	): Boolean!
+
+	editMaterials(
+		id: ID!
+		materialName: String!
+		materialDescription: String
+		units: Int
+		costPerUnit: Int
+		standardUnit: String
+	): Boolean!
+
+	removeMaterials(id: ID!): Boolean!
+}

@@ -1,0 +1,31 @@
+type SectionAssignment {
+	id: ID! @unique
+	dateOfAssignment: String!
+	dateRelieved: String!
+	createdAt: String!
+	updatedAt: String!
+	assignedBy: User!
+	projectAssignedTo: Project!
+	sectionAssignedTo: Section!
+	personAssignedTo: Personnel! @relation(name: "PersonnelAssignedSectionss")
+}
+
+type Query {
+	sectionAssignmentFeed(
+		filter: String
+		first: Int
+		skip: Int
+	): [SectionAssignment!]!
+	sectionAssignment(id: ID!): SectionAssignment
+}
+
+type Mutation {
+	addSectionAssignment(
+		projectId: ID!
+		personnelId: ID!
+		sectionId: ID!
+		dateOfAssignment: String!
+	): Boolean!
+
+	removeSectionAssignment(id: ID!): Boolean!
+}

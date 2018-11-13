@@ -1,0 +1,45 @@
+type Project {
+	id: ID
+	projectName: String
+	projectDescription: String
+	projectValuation: Int
+	projectStartDate: String
+	projectCompletionDate: String
+	projectLocation: String!
+	sections: [Section!]!
+	createdAt: String
+	updatedAt: String
+	materials: StoreTransaction
+}
+
+type ProjectResponse {
+	ok: Boolean!
+	errors: [Error!]
+}
+
+type Query {
+	projectFeed(filter: String, first: Int, skip: Int): [Project!]!
+	project(id: ID!): Project
+}
+
+type Mutation {
+	addProject(
+		projectName: String!
+		projectDescription: String!
+		projectValuation: Int!
+		projectStartDate: String!
+		projectCompletionDate: String!
+		projectLocation: String!
+	): Boolean!
+	editProject(
+		id: ID!
+		projectName: String!
+		projectDescription: String!
+		projectValuation: Int!
+		projectStartDate: String!
+		projectCompletionDate: String!
+		projectLocation: String!
+	): Boolean!
+
+	removeProject(id: ID!): Boolean!
+}

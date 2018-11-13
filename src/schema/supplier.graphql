@@ -1,0 +1,36 @@
+type Supplier {
+	id: ID! @unique
+	supplierName: String!
+	supplierPhone: String!
+	material: MaterialsCosting
+	negotiatedRate: Int
+	otherDetails: String
+	createdAt: String!
+	updatedAt: String!
+	createdBy: User!
+	supplies: [StoreTransaction!]!
+}
+
+type Query {
+	suppliersFeed(filter: String, first: Int, skip: Int): [Supplier!]!
+	getSupplier(id: ID!): Supplier
+}
+
+type Mutation {
+	createSupplier(
+		supplierName: String!
+		supplierPhone: String!
+		materialscostingId: ID!
+		negotiatedRate: Int!
+		otherDetails: String!
+	): Boolean!
+
+	editSupplier(
+		id: ID!
+		supplierName: String!
+		supplierPhone: String!
+		materialscostingId: ID!
+		negotiatedRate: Int!
+		otherDetails: String
+	): Boolean!
+}

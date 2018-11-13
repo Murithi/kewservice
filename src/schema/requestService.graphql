@@ -1,0 +1,57 @@
+type RequestService {
+	id: ID! @unique
+	requestedBy: User
+	requestApprovedBy: User
+	approxCostOFService: Int
+	otherDetails: String
+	approvalStatus: Boolean @default(value: "false")
+	issuedCash: Boolean @default(value: "false")
+	approvalDate: String
+	requestDate: String
+	cashIssued: Boolean @default(value: "false")
+	transactionCompleted: Boolean @default(value: "false")
+	createdAt: String!
+	updatedAt: String!
+	paymentsDetails: PaymentIssue
+	vehicleToBeServiced: Vehicle
+}
+
+type Query {
+	requestServiceFeed(filter: String, first: Int, skip: Int): [RequestService!]!
+	InitiatedRequisitionsFeed(
+		filter: String
+		first: Int
+		skip: Int
+	): [RequestService!]!
+	approvedRequisitionsFeed(
+		filter: String
+		first: Int
+		skip: Int
+	): [RequestService!]!
+	issuedRequisitionsFeed(
+		filter: String
+		first: Int
+		skip: Int
+	): [RequestService!]!
+	issuedRequisition(requestServiceId: ID!): RequestService
+	initiatedRequisition(requestServiceId: ID!): RequestService
+	approvedRequisition(requestServiceId: ID!): RequestService
+}
+
+type Mutation {
+	addRequestService(
+		otherDetails: String!
+		vehicleId: ID!
+		approxCostOFService: Int!
+		requestDate: String
+	): Boolean!
+
+	approveRequestService(
+		approvalStatus: Boolean
+		requestserviceId: ID!
+		approvalDate: String!
+	): Boolean!
+
+	approveAllRequestService(approvalDate: String!): Boolean!
+	removeRequestService(requestServiceId: ID!): Boolean!
+}

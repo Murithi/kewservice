@@ -1,0 +1,53 @@
+type AdvanceRequest {
+	id: ID! @unique
+	amountRequested: Int!
+	otherDetails: String!
+	approvalStatus: Boolean! @default(value: "false")
+	approvalDate: String
+	issuedCash: Boolean @default(value: "false")
+	payee: Personnel!
+	cashIssueDetails: PaymentIssue
+	requestApprovedBy: User
+	requestedBy: User
+	requestDate: String
+	createdAt: String!
+	updatedAt: String!
+}
+
+type Query {
+	advanceRequestFeed(filter: String, first: Int, skip: Int): [AdvanceRequest!]!
+	initiatedAdvanceRequestFeed(
+		filter: String
+		first: Int
+		skip: Int
+	): [AdvanceRequest!]!
+	approvedAdvanceRequestFeed(
+		filter: String
+		first: Int
+		skip: Int
+	): [AdvanceRequest!]!
+	issuedAdvanceRequestFeed(
+		filter: String
+		first: Int
+		skip: Int
+	): [AdvanceRequest!]!
+	issuedAdvanceRequest(advanceRequestId: ID!): AdvanceRequest!
+	initiatedAdvanceRequest(advanceRequestId: ID!): AdvanceRequest!
+	approvedAdvanceRequest(advanceRequestId: ID!): AdvanceRequest!
+}
+
+type Mutation {
+	addAdvanceRequest(
+		requestDate: String
+		personnelId: ID!
+		amountRequested: Int!
+		otherDetails: String!
+	): Boolean!
+	approveAdvanceRequest(
+		advanceRequestId: ID!
+		approvalDate: String!
+		approvalStatus: Boolean
+	): Boolean!
+	approveAllAdvanceRequest(approvalDate: String!): Boolean!
+	deleteAdvanceRequest(id: ID!): Boolean!
+}

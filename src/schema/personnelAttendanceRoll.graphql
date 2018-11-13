@@ -1,0 +1,29 @@
+type PersonnelAttendanceRoll {
+	id: ID!
+	employee: Personnel!
+	inAttendance: Boolean!
+	dateOfAttendance: String!
+	reportingTime: String!
+	exitTime: String!
+	createdAt: String!
+	updatedAt: String!
+}
+
+type Query {
+	PersonnelAttendanceRollFeed(
+		filter: String
+		first: Int
+		skip: Int
+	): [PersonnelAttendance!]!
+	PersonnelAttendanceRoll(id: ID!): PersonnelAttendance
+}
+
+type Mutation {
+	addPersonnelAttendance(
+		personnelId: ID!
+		inAttendance: Boolean!
+		dateOfAttendance: String!
+		reportingTime: String!
+		exitTime: String!
+	): Boolean
+}

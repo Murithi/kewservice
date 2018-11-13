@@ -1,0 +1,58 @@
+type VehicleInspection {
+	id: ID! @unique
+	approxCostOfInspection: Int
+	approvalDate: String
+	approvalStatus: Boolean @default(value: "false")
+	otherDetails: String
+	issuedCash: Boolean @default(value: "false")
+	dateInspected: String
+	vehicleToBeInspected: Vehicle!
+	paymentsDetails: PaymentIssue
+	requestApprovedBy: User
+	requestedBy: User
+	requestDate: String
+	createdAt: String!
+	updatedAt: String!
+}
+
+type Query {
+	vehicleInspectionFeed(
+		filter: String
+		first: Int
+		skip: Int
+	): [VehicleInspection!]!
+	initiatedVehicleInspectionsFeed(
+		filter: String
+		first: Int
+		skip: Int
+	): [VehicleInspection!]!
+	approvedVehicleInspectionsFeed(
+		filter: String
+		first: Int
+		skip: Int
+	): [VehicleInspection!]!
+	issuedVehicleInspectionsFeed(
+		filter: String
+		first: Int
+		skip: Int
+	): [VehicleInspection!]!
+	issuedVehicleInspection(vehicleinspectionId: ID!): VehicleInspection
+	initiatedVehicleInspection(vehicleinspectionId: ID!): VehicleInspection
+	approvedVehicleInspection(vehicleinspectionId: ID!): VehicleInspection
+}
+
+type Mutation {
+	addVehicleInspection(
+		requestDate: String
+		otherDetails: String!
+		vehicleId: ID!
+		approxCostOfInspection: Int!
+	): Boolean!
+
+	approveVehicleInspection(
+		vehicleinspectionId: ID!
+		approvalDate: String!
+		approvalStatus: Boolean
+	): Boolean!
+	approveAllVehicleInspection(approvalDate: String!): Boolean!
+}

@@ -1,0 +1,72 @@
+enum MiscellaneousType {
+	EQUIPMENT
+	MAINTENANCE
+	FEES
+}
+type MiscellaneousRequisition {
+	id: ID!
+	misceltype: MiscellaneousType
+	amountRequested: Int!
+	otherDetails: String!
+	paymentMode: String!
+	requestDate: String
+	approvalStatus: Boolean @default(value: "false")
+	approvalDate: String
+	issuedCash: Boolean @default(value: "false")
+	transactionCompleted: Boolean
+	requestedBy: User @relation(name: "InitiatedMiscellaneousRequests")
+	requestApprovedBy: User @relation(name: "ApprovedMiscellaneousRequests")
+
+	cashPaymentsDetails: PaymentIssue
+	otherPaymentDetails: OtherPaymentIssue
+	createdAt: String!
+	updatedAt: String!
+}
+
+type Query {
+	miscellaneousRequestFeed(
+		filter: String
+		first: Int
+		skip: Int
+	): [MiscellaneousRequisition!]!
+	initiatedMiscellaneousRequisitionFeed(
+		filter: String
+		first: Int
+		skip: Int
+	): [MiscellaneousRequisition!]!
+	approvedMiscellaneousRequisitionFeed(
+		filter: String
+		first: Int
+		skip: Int
+	): [MiscellaneousRequisition!]!
+	initiatedMiscellaneousRequisition(
+		miscellaneousrequisitionId: ID!
+	): MiscellaneousRequisition!
+	approvedMiscellaneousRequisition(
+		miscellaneousrequisitionId: ID!
+	): MiscellaneousRequisition!
+	issuedMiscellaneousRequisitionsFeed(
+		filter: String
+		first: Int
+		skip: Int
+	): [MiscellaneousRequisition!]!
+}
+
+type Mutation {
+	addMiscellaneousRequest(
+		miscelType: String!
+		amountRequested: Int!
+		otherDetails: String
+		paymentMode: String!
+		requestDate: String
+	): Boolean!
+	approveMiscellaneousRequest(
+		miscellaneousrequisitionId: ID
+		approvalDate: String
+		approvalStatus: Boolean
+	): Boolean!
+
+	approveAllMiscellaneousRequest(approvalDate: String): Boolean!
+
+	removeMiscellaneousRequest(miscellaneousrequisition_id: ID): Boolean!
+}

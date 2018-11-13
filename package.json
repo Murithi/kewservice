@@ -1,0 +1,38 @@
+{
+	"name": "kewaservicesql",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"dev": "nodemon start.js",
+		"format": "prettier --write src/**/*.{js,md,ts,sass,less,graphql,yaml,json}"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"devDependencies": {
+		"graphql": "^0.13.2",
+		"graphql-tools": "^3.1.1",
+		"husky": "^1.1.4",
+		"jest": "^23.5.0",
+		"nodemon": "^1.18.3",
+		"prettier": "^1.15.2"
+	},
+	"dependencies": {
+		"babel-plugin-transform-object-rest-spread": "^6.26.0",
+		"babel-preset-env": "^1.7.0",
+		"babel-register": "^6.26.0",
+		"bcrypt": "^3.0.2",
+		"bcryptjs": "^2.4.3",
+		"express": "^4.16.3",
+		"graphql-yoga": "^1.16.1",
+		"jsonwebtoken": "^8.3.0",
+		"lodash": "^4.17.11",
+		"merge-graphql-schemas": "^1.5.3",
+		"moment": "^2.22.2",
+		"pg": "^7.6.0",
+		"sequelize": "^4.38.0",
+		"uuid": "^3.3.2"
+	}
+}

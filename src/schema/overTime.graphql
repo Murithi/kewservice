@@ -1,0 +1,57 @@
+type OverTimeRequest {
+	id: ID! @unique
+	amountRequested: Int!
+	otherDetails: String!
+	approvalStatus: Boolean! @default(value: "false")
+	approvalDate: String
+	issuedCash: Boolean @default(value: "false")
+	cashIssueDetails: PaymentIssue
+	payee: Personnel!
+	requestApprovedBy: User
+	requestDate: String
+	requestedBy: User
+	createdAt: String!
+	updatedAt: String!
+}
+
+type Query {
+	overTimeRequestFeed(
+		filter: String
+		first: Int
+		skip: Int
+	): [OverTimeRequest!]!
+	initiatedOverTimeRequestFeed(
+		filter: String
+		first: Int
+		skip: Int
+	): [OverTimeRequest!]!
+	approvedOverTimeRequestFeed(
+		filter: String
+		first: Int
+		skip: Int
+	): [OverTimeRequest!]!
+	issuedOverTimeRequestFeed(
+		filter: String
+		first: Int
+		skip: Int
+	): [OverTimeRequest!]!
+	initiatedOverTimeRequest(overtimerequestId: ID!): OverTimeRequest!
+	approvedOverTimeRequest(overtimerequestId: ID!): OverTimeRequest!
+}
+
+type Mutation {
+	addOverTimeRequest(
+		requestDate: String
+		personnelId: ID!
+		amountRequested: Int!
+		otherDetails: String!
+	): Boolean!
+
+	approveOverTimeRequest(
+		overtimerequestId: ID!
+		approvalDate: String!
+	): Boolean!
+
+	approveAllOverTimeRequest(approvalDate: String!): Boolean!
+	deleteOverTimeRequest(id: ID!): Boolean!
+}

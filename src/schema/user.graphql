@@ -1,0 +1,67 @@
+type AuthPayload {
+	ok: Boolean!
+	token: String
+	refreshToken: String
+	user: User!
+	errors: [Error!]
+}
+
+# enum USERROLE {
+#   USER
+#   ACCOUNTANT
+#   SUPERUSER
+#   DIRECTOR
+#   ADMIN
+# }
+
+type User {
+	id: ID! @unique
+	email: String! @unique
+	password: String!
+	name: String!
+	locked: Boolean @default(value: "true")
+	authorized: Boolean @default(value: "true")
+	role: String
+	personnelDetails: Personnel
+	initiatedVehicleRequests: [VehicleRequisition!]!
+	approvedVehicleRequests: [VehicleRequisition!]!
+	approvedServiceRequests: [RequestService!]!
+	initiatedServiceRequests: [RequestService!]!
+	approvedRepairsRequests: [RepairsRequisition!]!
+	initiatedRepairsRequests: [RepairsRequisition!]!
+
+	initiatedMaterialRequests: [MaterialRequisition!]!
+	approvedMaterialRequests: [MaterialRequisition!]!
+	initiatedInspectionRequests: [VehicleInspection!]!
+	approvedInspectionRequests: [VehicleInspection!]!
+	initiatedAdvanceRequests: [AdvanceRequest!]!
+	approvedAdvanceRequests: [AdvanceRequest!]!
+	initiatedSalaryRequests: [SalaryRequest!]!
+	approvedSalaryRequests: [SalaryRequest!]!
+	createdAt: String!
+	updatedAt: String!
+}
+type Query {
+	userFeed(filter: String, first: Int, skip: Int): [User!]!
+	user(id: ID!): User
+	me: User
+}
+
+type Mutation {
+	signup(
+		name: String!
+		password: String!
+		email: String!
+		idNumber: String!
+	): AuthPayload!
+	login(email: String!, password: String!): AuthPayload!
+	updateUserRole(
+		id: ID!
+		role: String!
+		authorized: Boolean
+		locked: Boolean
+	): Boolean!
+	changeUser(id: ID!): User!
+	enableUser(id: ID!): User!
+	deleteUser(id: ID!): User!
+}

@@ -1,0 +1,31 @@
+type VehicleRequisition {
+	id: ID! @unique
+	vehicleType: String!
+	estimatedCost: Int
+	estimatedNoOfHours: Int!
+	requestStatus: Boolean! @default(value: "false")
+	project: Project!
+	requestApprovedBy: User @relation(name: "ApprovedVehicleRequests")
+	requestedBy: User @relation(name: "InitiatedVehicleRequests")
+	createdAt: String!
+	updatedAt: String!
+}
+
+type Query {
+	vehicleRequisitionFeed(
+		filter: String
+		first: Int
+		skip: Int
+	): [VehicleRequisition!]!
+}
+
+type Mutation {
+	addVehicleRequisition(
+		vehicleType: String!
+		estimatedNoOfHours: Int!
+		project: String!
+		section: String!
+		estimatedCost: Int
+		requestStatus: Boolean!
+	): VehicleRequisition!
+}

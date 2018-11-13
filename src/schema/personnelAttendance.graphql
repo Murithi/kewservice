@@ -1,0 +1,10 @@
+type PersonnelAttendance {
+	id: ID! @unique
+	dateOfAttendance: String!
+	inAttendance: Boolean!
+	reportingTime: String!
+	exitTime: String!
+	employee: Personnel!
+	createdAt: String!
+	updatedAt: String!
+}

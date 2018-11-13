@@ -1,0 +1,47 @@
+type StoreTransaction {
+	id: ID!
+	balanceBefore: Int
+	balanceAfter: Int
+	unitsTransacted: Int
+	transactionType: String
+	transactionDate: String
+	deliveryNote: String
+	transactedBy: User
+	materialsIssuedTo: Project
+	materialsRecievedFrom: Supplier
+	itemTransacted: MaterialsCosting
+
+	createdAt: String
+	updatedAt: String
+}
+
+type Query {
+	storageFeed(
+		transactionType: String
+		startDate: String
+		endDate: String
+		projectId: ID
+	): [StoreTransaction!]!
+	storageTransaction(id: ID!): StoreTransaction
+}
+
+type Mutation {
+	addReciepts(
+		StoreBalId: ID!
+		balanceBefore: Int!
+		unitsTransacted: Int!
+		transactionDate: String!
+		deliveryNote: String!
+		supplierId: ID!
+		materialsCostingId: ID!
+	): Boolean
+
+	addIssue(
+		StoreBalId: ID!
+		balanceBefore: Int!
+		unitsTransacted: Int!
+		transactionDate: String!
+		projectId: ID
+		materialsCostingId: ID!
+	): Boolean
+}

@@ -1,0 +1,20 @@
+type StoreBalance {
+	id: ID! @unique
+	item: MaterialsCosting
+	balance: Int!
+	createdAt: String
+	updatedAt: String
+}
+
+type Query {
+	storeBalanceFeed(filter: String, first: Int, skip: Int): [StoreBalance!]!
+	storeBalance(id: ID!): StoreBalance
+}
+
+type Mutation {
+	addStoreBalance(materialscostingId: ID!, balance: Int!): Boolean
+
+	editStoreBalance(id: ID!, balance: Int!, materialscostingId: ID!): Boolean!
+
+	removeBalanceEntry(id: ID!): Boolean!
+}

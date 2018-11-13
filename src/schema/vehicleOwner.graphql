@@ -1,0 +1,27 @@
+type VehicleOwner {
+	id: ID! @unique
+	name: String! @unique
+	phone: String!
+	email: String!
+	createdAt: String!
+	updatedAt: String!
+	vehicles: [Vehicle!]! @relation(name: "OwnerofVehicle")
+}
+
+type Query {
+	vehicleOwnerFeed(filter: String, first: Int, skip: Int): [VehicleOwner!]!
+	vehicleOwner(id: ID): VehicleOwner
+}
+
+type Mutation {
+	addVehicleOwner(name: String!, phone: String!, email: String!): Boolean!
+
+	editVehicleOwner(
+		id: ID!
+		name: String!
+		phone: String!
+		email: String!
+	): Boolean!
+
+	deleteVehicleOwner(id: ID!): Boolean!
+}

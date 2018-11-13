@@ -1,0 +1,39 @@
+type Section {
+	id: ID! @unique
+	sectionName: String!
+	sectionDescription: String!
+	sectionProject: Project!
+	sectionStartDate: String
+	sectionEndDate: String
+	sectionLocation: String!
+	createdAt: String!
+	updatedAt: String!
+}
+
+type Query {
+	sectionFeed(filter: String, first: Int, skip: Int): [Section]!
+	section(id: ID!): Section
+}
+
+type Mutation {
+	addSection(
+		sectionName: String!
+		sectionDescription: String!
+		projectId: ID!
+		sectionStartDate: String
+		sectionEndDate: String
+		sectionLocation: String!
+	): Boolean!
+
+	editSection(
+		id: ID!
+		sectionName: String!
+		sectionDescription: String!
+		projectId: ID!
+		sectionStartDate: String
+		sectionEndDate: String
+		sectionLocation: String!
+	): Boolean!
+
+	removeSection(id: ID!): Boolean!
+}

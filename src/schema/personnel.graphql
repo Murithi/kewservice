@@ -1,0 +1,88 @@
+type Personnel {
+	id: ID! @unique
+	firstName: String!
+	lastName: String!
+	idNumber: String! @unique
+	nssfId: String! @unique
+	nhifId: String! @unique
+	phoneNumber: String!
+	gender: Boolean! @default(value: "true")
+	addressNo: String!
+	location: String!
+	photoUrl: String!
+	highestEducationLevel: String!
+	certificatesUrl: String!
+	curriculumVitaeUrl: String!
+	dateOfEmployment: String!
+	dateOfTermination: String
+	currentSalary: String!
+	terminationStatus: Boolean! @default(value: "false")
+	reasonsForTermination: String
+	assignedToProject: Boolean! @default(value: "false")
+	designation: Role!
+	projectAssignedTo: Project
+	sectionsAssigned: [Section!]!
+	advancesRecieved(startDate: String, endDate: String): [AdvanceRequest!]!
+	salariesRecieved(startDate: String, endDate: String): [SalaryRequest!]!
+	createdAt: String!
+	updatedAt: String!
+}
+
+type Query {
+	personnelFeed(filter: String, first: Int, skip: Int): [Personnel!]!
+	personnel(id: ID!): Personnel!
+}
+
+type Mutation {
+	addPersonnel(
+		firstName: String!
+		lastName: String!
+		idNumber: String!
+		nssfId: String!
+		nhifId: String!
+		phoneNumber: String!
+		gender: Boolean!
+		addressNo: String!
+		location: String!
+		photoUrl: String!
+		highestEducationLevel: String!
+		certificatesUrl: String!
+		curriculumVitaeUrl: String!
+		roleId: String!
+		dateOfEmployment: String!
+		currentSalary: String!
+	): Boolean!
+
+	editPersonnel(
+		firstName: String!
+		lastName: String!
+		idNumber: String!
+		nssfId: String!
+		nhifId: String!
+		phoneNumber: String!
+		gender: Boolean!
+		addressNo: String!
+		location: String!
+		photoUrl: String!
+		highestEducationLevel: String!
+		certificatesUrl: String!
+		curriculumVitaeUrl: String!
+		roleId: String!
+		dateOfEmployment: String!
+		currentSalary: String!
+		id: ID!
+	): Boolean!
+
+	terminatePersonnel(
+		id: ID!
+		reasonsForTermination: String!
+		dateOfTermination: String!
+	): Boolean!
+	assignToProject(id: ID!, projectId: ID!): Boolean!
+	assignToSection(
+		sectionId: ID!
+		personnelId: ID!
+		dateAssigned: String
+	): Boolean!
+	removePersonnel(id: ID!): Boolean!
+}

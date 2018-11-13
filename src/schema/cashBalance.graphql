@@ -1,0 +1,20 @@
+type CashBalance {
+	id: ID! @unique
+	accountDetails: AccountName
+	balance: Int!
+	createdAt: String!
+	updatedAt: String!
+}
+
+type Query {
+	balanceFeed(filter: String, first: Int, skip: Int): [CashBalance!]!
+	balance(id: ID!): CashBalance
+}
+
+type Mutation {
+	addBalance(account_name_id: ID!, balance: Int): Boolean!
+
+	editBalance(account_name_id: ID!, balance: Int): Boolean!
+
+	removeBalance(id: ID!): Boolean!
+}

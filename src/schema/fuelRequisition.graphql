@@ -1,0 +1,57 @@
+type FuelRequisition {
+	id: ID! @unique
+
+	approxCostOfFuel: Int
+	approvalDate: String
+	approvalStatus: Boolean @default(value: "false")
+	otherDetails: String
+	dateFueled: String
+	issuedCash: Boolean @default(value: "false")
+	paymentsDetails: PaymentIssue
+	vehicleToBeFueled: Vehicle!
+	requestDate: String
+	requestApprovedBy: User @relation(name: "ApprovedFuelRequests")
+	requestedBy: User @relation(name: "InitiatedFuelRequests")
+	createdAt: String!
+	updatedAt: String!
+}
+
+type Query {
+	fuelRequestFeed(cursor: String, first: Int, skip: Int): [FuelRequisition!]!
+	initiatedFuelRequisitionsFeed(
+		filter: String
+		first: Int
+		skip: Int
+	): [FuelRequisition!]!
+	approvedFuelRequisitionsFeed(
+		filter: String
+		first: Int
+		skip: Int
+	): [FuelRequisition!]!
+	issuedFuelRequisitionsFeed(
+		filter: String
+		first: Int
+		skip: Int
+	): [FuelRequisition!]!
+	issuedFuelRequisition(fuelRequisitionId: ID!): FuelRequisition!
+	initiatedFuelRequisition(fuelRequisitionId: ID!): FuelRequisition!
+	approvedFuelRequisition(fuelRequisitionId: ID!): FuelRequisition!
+}
+
+type Mutation {
+	addFuelRequisition(
+		otherDetails: String!
+		vehicleId: ID!
+		approxCostOfFuel: Int!
+		requestDate: String
+	): Boolean!
+
+	approveFuelRequistion(
+		approvalStatus: Boolean
+		fuelRequisitionId: ID!
+		approvalDate: String!
+	): Boolean!
+
+	approveAllFuelRequistion(approvalDate: String!): Boolean!
+	removeFuelRequest(fuelRequisition_id: ID!): Boolean!
+}

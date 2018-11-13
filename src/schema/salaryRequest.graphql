@@ -1,0 +1,55 @@
+type SalaryRequest {
+	id: ID! @unique
+
+	amountRequested: Int!
+	otherDetails: String!
+	approvalStatus: Boolean! @default(value: "false")
+	approvalDate: String
+	issuedCash: Boolean @default(value: "false")
+	cashIssueDetails: PaymentIssue
+	payee: Personnel!
+	requestApprovedBy: User
+	requestDate: String
+	requestedBy: User
+	createdAt: String!
+	updatedAt: String!
+}
+
+type Query {
+	salaryRequestFeed(filter: String, first: Int, skip: Int): [SalaryRequest!]!
+	initiatedSalaryRequestFeed(
+		filter: String
+		first: Int
+		skip: Int
+	): [SalaryRequest!]!
+	approvedSalaryRequestFeed(
+		filter: String
+		first: Int
+		skip: Int
+	): [SalaryRequest!]!
+	issuedSalaryRequestFeed(
+		filter: String
+		first: Int
+		skip: Int
+	): [SalaryRequest!]!
+	initiatedSalaryRequest(salaryrequestId: ID!): SalaryRequest!
+	approvedSalaryRequest(salaryrequestId: ID!): SalaryRequest!
+}
+
+type Mutation {
+	addSalaryRequest(
+		requestDate: String
+		personnelId: ID!
+		amountRequested: Int!
+		otherDetails: String!
+	): Boolean!
+
+	approveSalaryRequest(
+		approvalStatus: Boolean
+		salaryrequestId: ID!
+		approvalDate: String!
+	): Boolean!
+
+	approveAllSalaryRequest(approvalDate: String!): Boolean!
+	deleteSalaryRequest(id: ID!): Boolean!
+}

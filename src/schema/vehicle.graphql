@@ -1,0 +1,58 @@
+type Vehicle {
+	id: ID! @unique
+	registrationNumber: String! @unique
+	logBookNumber: String! @unique
+	model: String!
+	fuelType: String!
+	insuranceValuation: Int
+	insuranceRenewalDate: String
+	manufactureDate: String
+
+	assigned: Boolean! @default(value: "false")
+	assignee: Personnel
+	dateAssigned: String
+	owner: VehicleOwner!
+	service(startDate: String, endDate: String): [RequestService!]!
+	repairs(startDate: String, endDate: String): [RepairsRequisition!]!
+	inspection(startDate: String, endDate: String): [VehicleInspection!]!
+	fuelrequests(startDate: String, endDate: String): [FuelRequisition!]!
+	createdAt: String!
+	updatedAt: String!
+}
+
+type Query {
+	vehicleFeed(filter: String, first: Int, skip: Int): [Vehicle!]!
+	vehicleDisplayFeed: [Vehicle!]!
+	vehicleAssignedFeed: [Vehicle!]!
+	getVehicle(id: ID!, startDate: String, endDate: String): Vehicle!
+}
+type Mutation {
+	addVehicle(
+		registrationNumber: String!
+		logBookNumber: String!
+		model: String!
+		fuelType: String!
+		insuranceValuation: Int
+		insuranceRenewalDate: String
+		manufactureDate: String
+		vehicleOwnerId: ID!
+	): Boolean!
+
+	editVehicle(
+		id: ID!
+		registrationNumber: String!
+		logBookNumber: String!
+		model: String!
+		fuelType: String!
+		insuranceValuation: Int
+		insuranceRenewalDate: String
+		manufactureDate: String
+		vehicleOwnerId: ID!
+	): Boolean!
+
+	removeVehicle(id: ID): Boolean!
+
+	# editVehicleAssignee(
+	#     id:ID! personnelID:ID! personnelID:Boolean, dateAssigned:String
+	#     ):Vehicle!
+}

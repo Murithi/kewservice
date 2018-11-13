@@ -1,0 +1,36 @@
+type Role {
+	id: ID! @unique
+	roleName: String!
+	minimumSalary: String!
+	maximumSalary: String!
+	description: String
+	personnels: [Personnel!]!
+	createdAt: String!
+
+	updatedAt: String!
+}
+
+type Query {
+	personnelRoleFeed: [Role!]!
+	personnelRoleFeedByDesignation(roleName: String): [Role!]!
+	personnelRole(id: ID!): Role
+}
+
+type Mutation {
+	addRole(
+		roleName: String!
+		minimumSalary: String!
+		maximumSalary: String!
+	): Boolean!
+
+	editRole(
+		id: ID!
+		roleName: String!
+		minimumSalary: String!
+		maximumSalary: String!
+	): Boolean!
+
+	describeRole(id: ID!, description: String!): Boolean!
+
+	removeRole(id: ID!): Boolean!
+}

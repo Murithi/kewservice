@@ -1,0 +1,60 @@
+type RepairsRequisition {
+	id: ID! @unique
+	requestedBy: User @relation(name: "InitiatedRepairsRequests")
+	requestApprovedBy: User @relation(name: "ApprovedRepairsRequests")
+	vehicleToBeRepaired: Vehicle!
+	approxCostOfRepair: Int
+	otherDetails: String
+	approvalStatus: Boolean! @default(value: "false")
+	approvalDate: String
+	requestDate: String
+	issuedCash: Boolean @default(value: "false")
+	paymentsDetails: PaymentIssue
+	createdAt: String!
+	dateServiced: String
+	updatedAt: String!
+}
+
+type Query {
+	repairsRequestFeed(
+		filter: String
+		first: Int
+		skip: Int
+	): [RepairsRequisition!]!
+	initiatedRepairsRequisitionsFeed(
+		filter: String
+		first: Int
+		skip: Int
+	): [RepairsRequisition!]!
+	approvedRepairsRequisitionsFeed(
+		filter: String
+		first: Int
+		skip: Int
+	): [RepairsRequisition!]!
+	issuedRepairsRequisitionsFeed(
+		filter: String
+		first: Int
+		skip: Int
+	): [RepairsRequisition!]!
+	issuedRepairsRequisition(repairrequisitionId: ID!): RepairsRequisition!
+	initiatedRepairsRequisition(repairrequisitionId: ID!): RepairsRequisition!
+	approvedRepairsRequisition(repairrequisitionId: ID!): RepairsRequisition!
+}
+
+type Mutation {
+	addRepairsRequisition(
+		requestDate: String!
+		otherDetails: String!
+		vehicleId: ID!
+		approxCostOfRepair: Int!
+	): Boolean!
+
+	approveRepairsRequistion(
+		approvalStatus: Boolean
+		repairrequisitionId: ID!
+		approvalDate: String!
+	): Boolean!
+
+	approveAllRepairsRequisition(approvalDate: String!): Boolean!
+	removeRepairsRequest(repairrequisitionId: ID!): Boolean
+}

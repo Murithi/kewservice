@@ -1,0 +1,66 @@
+type MaterialRequisition {
+	id: ID! @unique
+	quantity: Int
+	otherDetails: String
+	approxCost: Int
+	paymentMode: String
+	approvalStatus: Boolean! @default(value: "false")
+	approvalDate: String
+	requestDate: String
+	issuedCash: Boolean @default(value: "false")
+	materialType: MaterialsCosting
+	supplier: Supplier
+	cashPaymentsDetails: PaymentIssue
+	otherPaymentDetails: OtherPaymentIssue
+	requestedBy: User @relation(name: "InitiatedMaterialRequests")
+	requestApprovedBy: User @relation(name: "ApprovedMaterialRequests")
+	createdAt: String!
+	updatedAt: String!
+}
+
+type Query {
+	materialRequisitionFeed(
+		filter: String
+		first: Int
+		skip: Int
+	): [MaterialRequisition!]!
+	initiatedMaterialRequisitionsFeed(
+		filter: String
+		first: Int
+		skip: Int
+	): [MaterialRequisition!]!
+	approvedMaterialRequisitionsFeed(
+		filter: String
+		first: Int
+		skip: Int
+	): [MaterialRequisition!]!
+	issuedMaterialRequisitionsFeed(
+		filter: String
+		first: Int
+		skip: Int
+	): [MaterialRequisition!]!
+	issuedMaterialRequisition(materialrequisitionId: ID): MaterialRequisition
+	initiatedMaterialRequisition(materialrequisitionId: ID): MaterialRequisition
+	approvedMaterialRequisition(materialrequisitionId: ID!): MaterialRequisition
+}
+
+type Mutation {
+	addMaterialRequisition(
+		materialscostingId: ID!
+		quantity: Int!
+		supplierId: ID!
+		otherDetails: String
+		approxCost: Int!
+		paymentMode: String!
+		requestDate: String
+	): Boolean!
+
+	approveMaterialRequisition(
+		materialrequisitionId: ID!
+		approvalDate: String!
+		approvalStatus: Boolean
+	): Boolean!
+
+	approveAllMaterialRequisition(approvalDate: String!): Boolean!
+	removeMaterialRequest(materialrequisition_id: ID!): Boolean
+}
