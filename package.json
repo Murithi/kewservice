@@ -4,6 +4,7 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
+		"precommit": "npm run format && git add .",
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"dev": "nodemon start.js",
 		"format": "prettier --write src/**/*.{js,md,ts,sass,less,graphql,yaml,json}"
