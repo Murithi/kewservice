@@ -2,9 +2,9 @@ type OverTimeRequest {
 	id: ID! @unique
 	amountRequested: Int!
 	otherDetails: String!
-	approvalStatus: Boolean! @default(value: "false")
+	approvalStatus: Boolean!
 	approvalDate: String
-	issuedCash: Boolean @default(value: "false")
+	issuedCash: Boolean
 	cashIssueDetails: PaymentIssue
 	payee: Personnel!
 	requestApprovedBy: User
@@ -50,6 +50,7 @@ type Mutation {
 	approveOverTimeRequest(
 		overtimerequestId: ID!
 		approvalDate: String!
+		approvalStatus: Boolean
 	): Boolean!
 
 	approveAllOverTimeRequest(approvalDate: String!): Boolean!

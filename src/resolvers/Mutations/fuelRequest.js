@@ -23,10 +23,12 @@ const FuelRequest = {
 			return false
 		}
 	},
-	approveFuelRequistion: async (_, args, ctx) => {
+	approveFuelRequistion: async (
+		_,
+		{ approvalStatus, fuelRequisitionId, approvalDate },
+		ctx,
+	) => {
 		try {
-			console.log(args)
-			const { approvalStatus, fuelRequisitionId, approvalDate } = args
 			const userId = getUserId(ctx)
 			let transactionCompleted = true
 			if (approvalStatus) transactionCompleted = false

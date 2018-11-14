@@ -11,7 +11,7 @@ type PaymentIssue {
 	otherDetails: String
 	dateIssued: String
 	dateReported: String
-	cashReported: Boolean @default(value: "false")
+	cashReported: Boolean
 	accountCharged: AccountName
 	issuedBy: User!
 	createdAt: String!

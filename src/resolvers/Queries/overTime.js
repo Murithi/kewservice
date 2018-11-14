@@ -3,7 +3,7 @@ const OverTimeRequestQuery = {
 		await models.OverTimeRequest.findAll(),
 	initiatedOverTimeRequestFeed: async (_, args, ctx) => {
 		const feed = await ctx.models.sequelize.query(
-			'SELECT *  FROM public."initiatedOverTimeRequests" i join public."overTimeRequests" a on i."overtimerequest_id" =a."overtimerequest_id" and a."approvalStatus" is not true order by a."requestDate" asc',
+			'SELECT *  FROM public."initiatedOverTimeRequests" i join public."overTimeRequests" a on i."overtimerequest_id" =a."overtimerequest_id" and a."approvalStatus" is not true and "transactionCompleted" is not true order by a."requestDate" asc',
 			{
 				model: ctx.models.initiatedOverTimeRequests,
 				raw: true,
@@ -55,7 +55,7 @@ const OverTimeRequestQuery = {
 				raw: true,
 			},
 		)
-		console.log(feed)
+
 		return feed[0][0]
 	},
 }

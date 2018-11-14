@@ -18,22 +18,28 @@ const OverTimeRequest = {
 
 	approveOverTimeRequest: async (
 		_,
-		{ overtimerequestId, approvalDate },
+		{ overtimerequestId, approvalDate, approvalStatus },
 		ctx,
 	) => {
 		try {
 			const userId = getUserId(ctx)
-			let approvalStatus = true
+			let transactionCompleted = true
+			if (approvalStatus) transactionCompleted = false
 			let overtimerequest_id = overtimerequestId
 			const request = await ctx.models.OverTimeRequest.findOne({
 				where: { overtimerequest_id },
 			})
-			const approvedReq = await request.update({ approvalStatus, approvalDate })
-			const approvedT = await ctx.models.ApprovedOverTimeRequests.create({
-				userId,
-				overtimerequestId,
+			const approvedReq = await request.update({
+				approvalStatus,
+				approvalDate,
+				approvalStatus,
 			})
-
+			if (!transactionCompleted) {
+				const approvedT = await ctx.models.ApprovedOverTimeRequests.create({
+					userId,
+					overtimerequestId,
+				})
+			}
 			return true
 		} catch (error) {
 			console.log(error)
