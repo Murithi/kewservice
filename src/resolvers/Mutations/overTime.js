@@ -32,7 +32,7 @@ const OverTimeRequest = {
 			const approvedReq = await request.update({
 				approvalStatus,
 				approvalDate,
-				approvalStatus,
+				transactionCompleted,
 			})
 			if (!transactionCompleted) {
 				const approvedT = await ctx.models.ApprovedOverTimeRequests.create({
